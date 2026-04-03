@@ -1,0 +1,82 @@
+What is minikube?
+What is kubectl?
+Setup Minikube cluster.
+
+
+What is MiniKube?
+In a Production Cluster Setup, we have multiple master and worker nodes with separate virtual or physical machines.
+
+If we wanted to test locally, we'd have issues because of resource contention. 
+
+Enter Minikube!!!
+
+The Master and Node processes run on ONE machine!!!
+This one machine or one node, has the Docker container pre-installed.
+It would run on your laptop through a Virtual Box or another hypervisor.
+
+Basically, Minikube create a virtual box on your laptop.
+And the node runs in that Virtual Box.
+So Minikube is a 1 Node K8s cluster that runs in your virtual box on your laptop used for testing purposes.
+
+So now, you'd want to interact with the one-node 'cluster' on your laptop to create components, etc. 
+
+Enter Kubectl!!!
+
+Kubectl is a way to interact with the Node to create Pods, and other Services, Secrets and ConfigMaps.
+
+Command line tool for K8s cluster.
+
+One of the Master processes is the 'API Server' that enabled interaction with the cluster. You can use the UI, API or CLI (Kubectl). The Kubectl is the most powerful of the 3 clients.
+
+We will be using Kubectl to enable pods to run on node, create pods, destroy the pods, create services, etc.
+
+Kubectl is the tool to interact with the Minikube or cloud cluster.
+
+
+Installation and create of the Minikube cluster <-------------------
+
+Installation guide. 
+Links for your OS:
+
+https://kubernetes.io/docs/tasks/tools/install-minikube/
+
+https://kubernetes.io/docs/tasks/tools/install-kubectl/
+
+Virtualization on your machine is needed!!!!
+
+Step 1: Install Hypervisor, like Virtual Box or VMware Workstation.
+
+On MacOS we can install - hyperkit.
+brew install hyperkit
+
+
+brew install minikube
+(Minikube has kubectl as dependency)
+(no separate installation needed)
+
+
+kubectl 
+
+minikube
+(to start, top, delete, status dashboard the kubernetes cluster)
+
+
+
+Create and start a k8s cluster <------------
+
+minikube start --vm-driver=hyperkit 
+(this also prepares Docker)
+
+kubectl get nodes
+
+minikube status
+
+kubectl version
+
+
+We will be using the Kubectl CLI for configuring the Minikube cluster!!!!
+
+Minikube CLI is for startup/deleting of the cluster.
+
+######################
+

@@ -1,0 +1,28 @@
+What is Kubernetes?
+
+Open source container orchestration tool
+Developer by Google.
+
+Help you manage containarized applications in different deployment environments.
+Physical
+Virtual
+Cloud
+
+What problems does Kubernetes solve?
+What are the tasks of an orchestration tool?
+
+
+The need for a container orchestration tool.
+- trend from Monolith to Microservices.
+- increased usage of containers.
+- demand for a proper way of managing those hundreds of containers.
+
+
+What features do orchestration tools offer?
+High Availability or no downtime.
+Scalability or high performance.
+Disaster recovery - backup and restore.
+
+
+
+

@@ -1,0 +1,151 @@
+Kubernetes CLI - Main kubectl commands
+
+Basic kubectl commands:
+
+Create and debug Pods in a minikube cluster!!!!
+
+CRUD commands:
+Create deployment	kubectl create deployment [name]
+Edit deployment		kubectl edit deployment [name]
+Delete deployment	kubectl delete deployment [name]
+
+Status of different k8s components:
+
+kubectl get nodes|podes|services|replicateset|deployment
+
+Debugging pods:
+Log to console			kubectl logs [pod name]
+Get Interactive Terminal	kubectl exec -it [pod name] -- bin/bash
+
+
+
+Get status of components <------------
+Create and Edit a Pod!!!
+
+Pre-requisites:
+- minikube installed
+- kubectl installed
+
+kubectl get nodes
+
+kubectl get pod
+
+kubectl get services
+
+#we will create pods
+kubectl create -h
+
+But remember, Pod is the smallest unit, but you are creating instead with an abstraction layer called Deployment - abstraction over Pods.
+
+Usage:
+kubectl create deployment NAME --image=image [--dry-run] [options]
+
+
+kubectl create deployment nginx-depl --image=nginx
+
+kubectl get deployment
+
+kubectl get pod
+(should show as running)
+
+When we create a deployment, this is the blueprint for creating the pod. Most basic configuration for deployment (name and image to use). The Rest is the defaults!
+
+kubectl get replicaset
+
+(Replicaset is managing the replicas of a Pod).
+
+If you wanted to create more than one Pod duirng the 'create deployment' command, you'd use the [options] for the replicaset.
+
+######
+Layers of Abstraction!!!!
+
+The Deployment manages a replicaset.
+
+Replicaset manages all the replicasets of that pod. 
+
+Pod is an abstraction of a container!!!!
+
+Container...
+
+Everything below the Deployment should be handled by Kubernetes!!!
+
+######
+
+We will make a change...
+
+
+kubectl edit deployment nginx-depl
+(we get an auto-generated configuration file with the default values)
+
+K8s configuration file is explained (in the next video).
+But if we make any changes, the old pod will be Terminated and a new one Running.
+
+kubectl get pod
+(this will show the statuses of your pods, whether terminating or running)
+
+
+kubectl get replicaset
+(we notice the old replicaset has no pods in it and the new one has been created).
+
+Debugging PODS <---------------
+
+kubectl logs <pod name>
+(we need to be logging something, so we can see logs).
+
+kubectl create deployment mongo-depl --image=mongo
+kubectl get pod
+kubectl logs mongo-depl-adasd4asda-adasda
+kubectl get pod
+
+kubectl describe pod [pod name]
+(to get more information on the pod name)
+
+kubectl get pod
+
+kubectl logs mongo-depl-asdsad5676-adasda
+
+- to see what's going on inside the pod
+kubectl exec -it [pod name] -- bin/bash
+
+kubectl exec -it mongo-depl-adasd4asda-adasda -- bin/bash
+
+(once enter the container, you can execute commands)
+ls
+exit
+
+
+Delete Deployment - apply configuration file <----------------------------
+
+- we're checking on what we have
+kubectl get deployment
+kubectl get pod
+
+
+- if we want to delete
+kubectl delete deployment mongo-depl
+kubectl get pod
+kubectl get replicaset
+
+kubectl delete deployment nginx-depl
+
+When we configure the configuration file and then we want to apply everything we use:
+kubectl apply -f [file name]
+
+ex:
+kubectl apply -f config-file.yaml
+
+kubectl apply -f nginx-deployment.yaml
+(paste a basic config in the .yaml file)
+
+kubectl apply -f nginx-deployment.yaml
+
+kubectl get pod
+
+kubectl get deployment
+
+(we can change the replicas amount from 1 to 2)
+
+K8s knows when to create or update the deployment.
+
+###############
+
