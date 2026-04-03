@@ -1,0 +1,16 @@
+Container services on AWS
+
+- created an EC2 instance on AWS
+- installed Docker to run containers
+- we used AWS infrastructure
+
+Microservices apps
+- multiple container
+- because of microservices, containers have become very popular.
+- companies create apps that compromise multiple containers.
+
+Things get to be very manual when we have to run multiple containers, install Docker, run commands. 
+
+For this, AWS has Containers, ECRs, and Kubernetes.
+
+

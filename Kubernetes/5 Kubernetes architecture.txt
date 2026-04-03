@@ -1,0 +1,100 @@
+Kubernetes architecture
+
+2 types of nodes:
+Master
+and
+Slave.
+
+
+Node processes <-------------------
+Worker machine in k8s cluster <------------------
+
+Each Node has multiple pods on it.
+3 processes must be installed on every node.
+Worker Nodes do the actual work!!!
+
+1st process to run on every node is the Container Runtime!!!
+Some of the container runtimes are: Docker, ContainerD and Cri-O. ContainerD being the MOST common, which is much more lightweight than Docker for instance.
+The container runtime needs to be installed on Every node!
+
+The process that schedules those pods and the containers is Kubelet. 
+Kubelet interacts with both - the container and node.
+Kubelet starts the pod with a container inside.
+
+Communication is via Services!
+
+Kube proxy - forwards the requests to the respective pods. This needs to be also installed on every node!
+Kube proxy will send the request to the same Node as the pod that initiated the request, this way reducing unnecessary network traffic. 
+
+3 Node processes:
+1. Kubelet
+2. Kube Proxy 
+(both must be installed on any k8s worker node).
+3. Container runtime (independent).
+
+
+So, how do you interact with this cluster?! <------------------
+
+How to:
+- schedule to run on which pod?
+- if the replica dies, which process monitors it?
+- and re-schedule/restart the pod that died?
+- or joins a new Node once it's ready?
+
+ALL managing processes are done by Master Nodes!
+
+
+MASTER processes <---------------------
+- the Master nodes have different processes running on each of them
+- 4 processes run on every master node!!!!
+- these control the Nodes and state
+
+1) API Server (cluster gateway for the initial request such as updates or queries). Act as a gatekeeper for authentication.
+- so basically:
+Some request comes in to the API servers, which validates the request and forwards it to other processes, to schedule a Pod or create some component we're requesting.
+
+
+2) Scheduler
+Schedule a new pod - API server - scheduler - where to put the Pod (checks available resources)? - Kubelet receives the request.
+
+Scheduler just decides on which Node new Pod should be scheduled.
+
+3) Controller manager - crucial component.
+Detects when pods die and schedules for new pods to be started.
+
+Detects cluster state changes and tries to recover the cluster state.
+
+Controller manager - Scheduler - Kubelet. 
+
+
+4) ETCD - this is the cluster brain.
+Cluster changes get stored in the key value store.
+
+etcd service.
+
+Every change in the cluster is managed by etcd.
+All the other components work with etcd because of ITS DATA!!!
+
+For instance, how would the Scheduler which resources are available?
+Did the cluster state change?
+Is the cluster healthy?
+
+Application data is NOT stored in etcd!!!!
+
+ETCD is a distributed storage across all master nodes!!!
+
+
+EXAMPLE Cluster Setup <-------------------
+2 master nodes.
+3 worker nodes.
+
+Masters nodes need less resources.
+Nodes have more resources.
+
+To add a new Master/Node server:
+- get new bare server.
+- install all the master/worker node processes.
+- add it to the cluster.
+
+
+###############################

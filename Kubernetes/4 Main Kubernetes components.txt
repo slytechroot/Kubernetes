@@ -1,0 +1,84 @@
+Kubernetes Components
+
+Docker App + database.
+
+Node and Pod <-----------------
+Worker node - simple server <--------------
+
+Pod - smallerst unit of K8s. <--------------
+It's a running environment or layer on top of the container.
+That's because Kubernetes wants to create Abstraction over the container technologies to make them (containers) more easily to be replaced.
+
+You only interact with Kubernetes layers.
+
+You can typically run 1 container inside of a Pod, but you can run multiple as well inside of a Pod and a service that run inside of the Pod. So our application container will talk over an IP address with another database container inside of the Pod. 
+
+Each Pod gets its own private IP address. That's how application talks inside of a Node, by IPs.
+
+Pod components in Kubernetes are ephemeral. They can die very easily. When a Pod dies, a new one gets created with a new internal IP address.
+
+Service (is used) <-----------------
+Permanent IP address attached to each pod.
+
+Lifecycle of Pod and Service are NOT connected.
+
+App should be accessible through the browser. For this we use - the external service. The application IP address and port are not practical, except for testing products. For this we use a service called Ingress!!!!
+The request therefore goes to the Ingress and the Ingress does the forwarding to the Service.
+
+
+ConfigMap and Secret <---------------
+
+- so pods communicate with each other using a service.
+
+Database URL usually in the built application!
+If it changes you need to re-build the app, push it to the repo and pull it in your pod.
+
+ConfigMap - external configuration of your application.
+
+DON'T put credentials into ConfigMap!!!!
+For this K8S uses SECRET!!! Used to store secret data. Base64 encoded!!!!
+Secret will have the credentials.
+The built-in security mechanism is not enabled by default!!!
+
+Use the data from the application ConfigMap inside of your application pod as environmental variables or as a properties file.
+
+Volumes <------------------
+Data storage!!!
+
+- storage on local machine
+- or remote storage, outside of the k8s cluster.
+
+Be aware of the k8s cluster and its storage options!
+
+K8s doesn't manage the data for persistance. 
+
+
+Deployment and StatefulSet <----------------
+
+- if one application pod dies and don't have high availability is bad for business.
+- For this reason we'd replicate everything to another Node (servers) with similar services.
+
+The replica is also connected to the Service.
+
+Service has 2 functionalities:
+- permanent IP
+- load balancer!!!
+
+Define blueprints for pods!
+
+Deployment - blueprint for my-app pods. In practice you do not create pods, You create Deployments because this is where you mention how many replicas you want. You can scale up and down as needed. Pod is a layer of abstraction on top of containers. And Deployment is another abstraction on top of pods.
+
+Databases cannot be replicated via Deployment, because of its data. Its data needs to be stored in a common location, but for Deployment (multiple pods) to be able to access the same data, you'd need a mechanism that allows us to do so. The mechanism would have to be aware of which pods are currently writing to the storage and which pods are reading from the storage to avoid data inconsistencies. And this is where the StatefulSet enters the scene, which is a service offered by Kubernetes.
+
+StatefulSet is meant specifically for applications like databases: MySql, MongoDB, Elastic Search and many more.
+
+Deployment for stateLESS apps!
+
+StatefulSet for stateFULL apps and Databases!
+
+Deploying StatefulSet apps in K8s is NOT easy!
+
+DB are often hosted outside of K8s clusters!!!
+
+Wrap UP!!!
+

@@ -1,0 +1,23 @@
+How to create multiple containerized applications and deploy them with CI/CD pipelines?
+
+Containers with Kubernetes!!!!
+
+
+Intro to K8s.
+Main k8s components.
+Minikube and kubectl - local setup
+Main Kubectl commands
+Yaml configuration files
+Demo Project!!!!
+
+Organize components - NameSpaces
+Configure Connectivity - Services
+Make app available from the outside - Ingress
+Persist data - Volumes
+ConfigMap and Secret as Volume Types
+Deploy Stateful apps - StatefulSet.
+Package Manager of K8s - Helm.
+Extending the K8s API - Operator.
+
+
+
