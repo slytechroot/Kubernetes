@@ -1,0 +1,49 @@
+Pods with YAML
+
+Required fields ########################
+
+apiVersion:
+kind:
+metadata:
+
+spec:
+
+##################################
+
+apiVersion: v1
+kind: Pod
+metadata:
+	name: myapp-pod
+	labels:
+		app: myapp
+		type: front-end
+
+spec:
+	containers:
+		- name: nginx-container
+		  image: nginx
+		  
+
+
+########################
+
+kubectl create -f pod-definition.yml
+
+kubectl get pods
+
+#get information about the pod, such as creation, labels, what Docker containers are part of it and the events associated with that pod
+kubectl describe pod myapp-pod
+
+
+
+
+
+
+
+
+
+
+
+
+
+

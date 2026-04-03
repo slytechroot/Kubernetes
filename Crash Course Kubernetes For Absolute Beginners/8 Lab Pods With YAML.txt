@@ -1,0 +1,200 @@
+Lab Pods With YAML
+
+1)
+Create a YAML file at /root/web-pod.yaml with the following specifications:
+
+    Pod Name: web-pod
+    Container Name: nginx-container
+    Image: nginx
+    Labels:
+        app: web
+        env: prod
+
+Apply the YAML file to create the Pod.
+
+Solution:
+Utilize the YAML file provided below to create a Pod and save it in the specified location: /root/web-pod.yaml.
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: web-pod
+  labels:
+    app: web
+    env: prod
+spec:
+  containers:
+    - name: nginx-container
+      image: nginx
+
+Once the YAML file is created, execute the following command to create the Pod:
+
+kubectl apply -f /root/web-pod.yaml
+
+
+2)
+Create a YAML file at /root/redis-pod.yaml with the following specifications:
+
+    Pod Name: redis-pod
+    Container Name: redis-container
+    Image: redis
+    Labels:
+        app: cache
+        env: dev
+
+Once the YAML file is created, proceed to apply it in order to create the Pod.
+
+Solution:
+Utilize the YAML file provided below to create a Pod and save it in the specified location: /root/redis-pod.yaml.
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: redis-pod
+  labels:
+    app: cache
+    env: dev
+spec:
+  containers:
+    - name: redis-container
+      image: redis
+
+Once the YAML file is created, execute the following command to create the Pod:
+
+kubectl apply -f /root/redis-pod.yaml
+
+
+3)
+How many pods are created in the cluster?
+
+Hint:
+Use the 'kubectl get' command.
+
+Solution:
+Run the command 'kubectl get pods' and count the number of pods.
+
+5
+
+
+4)
+You have been provided with the following YAML file located at /root/broken-pod.yaml. This file is intended to create a Pod named static-web using the httpd image. 
+However, the file contains multiple issues. Fix the issues and deploy the pod.
+
+The file contains multiple issues, so your task is to identify and resolve these issues and then deploy the Pod successfully.
+
+Solution:
+Utilize the fixed YAML file provided below:
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: static-web
+  labels:
+    app: static
+    env: prod
+spec:
+  containers:
+    - name: httpd-container
+      image: httpd
+
+Once the YAML file is created, execute the following command to create the Pod:
+
+kubectl apply -f /root/broken-pod.yaml
+
+
+5)
+A Pod named node-api has been deployed. The container within this Pod contains an environment variable named APP_COLOR.
+
+Identify the value of the APP_COLOR environment variable configured inside the container.
+
+Solution:
+Use the following command to describe the Pod and view the environment variables configured in the container spec:
+
+kubectl describe pod node-api
+
+Look under the "Containers" → "Environment" section for APP_COLOR.
+
+
+
+green
+
+
+
+controlplane ~ ➜  kubectl describe pod node-api
+Name:             node-api
+Namespace:        default
+Priority:         0
+Service Account:  default
+Node:             controlplane/192.168.51.248
+Start Time:       Fri, 03 Apr 2026 08:32:28 +0000
+Labels:           <none>
+Annotations:      <none>
+Status:           Running
+IP:               10.22.0.17
+IPs:
+  IP:  10.22.0.17
+Containers:
+  webapp-color:
+    Container ID:   containerd://54b37603ef9c416cb61cbad5965d7937d831b774b0c70d5f66509ab07b9bb958
+    Image:          kodekloud/webapp-color:v1
+    Image ID:       docker.io/kodekloud/webapp-color@sha256:27b1e0cbd55a646824c231c896bf77f8278f2d335c4f2b47cbb258edf8281ceb
+    Port:           8080/TCP
+    Host Port:      0/TCP
+    State:          Running
+      Started:      Fri, 03 Apr 2026 08:32:31 +0000
+    Ready:          True
+    Restart Count:  0
+    Environment:
+      APP_COLOR:  green
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-97x4m (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       True 
+  ContainersReady             True 
+  PodScheduled                True 
+Volumes:
+  kube-api-access-97x4m:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type    Reason     Age   From               Message
+  ----    ------     ----  ----               -------
+  Normal  Scheduled  61s   default-scheduler  Successfully assigned default/node-api to controlplane
+  Normal  Pulling    61s   kubelet            spec.containers{webapp-color}: Pulling image "kodekloud/webapp-color:v1"
+  Normal  Pulled     59s   kubelet            spec.containers{webapp-color}: Successfully pulled image "kodekloud/webapp-color:v1" in 2.021s (2.021s including waiting). Image size: 31741738 bytes.
+  Normal  Created    59s   kubelet            spec.containers{webapp-color}: Container created
+  Normal  Started    59s   kubelet            spec.containers{webapp-color}: Container started
+
+controlplane ~ ➜  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

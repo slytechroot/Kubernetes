@@ -1,0 +1,97 @@
+Lab Pods
+
+1)
+How many pods exist on the system?
+Note: Check in the current(default) namespace.
+
+Hint:
+Run the command 'kubectl get pods' and count the number of pods.
+
+Solution:
+There are no pods in the default namespace currently, so the correct answer is 0.
+
+0
+
+2)
+Create a new pod with the nginx image.
+
+Hint:
+Use the 'kubectl run' command with the correct image.
+
+Solution:
+Run the command: 
+kubectl run nginx --image=nginx
+
+
+3)
+How many pods are created now?
+Note: We have created a few more pods. So please check again in the current(default) namespace.
+
+Hint:
+Use the 'kubectl get' command.
+
+Solution:
+Run the command 'kubectl get pods' and count the number of pods.
+
+controlplane ~ ➜  kubectl get pods
+NAME            READY   STATUS    RESTARTS   AGE
+newpods-mv4h7   1/1     Running   0          114s
+newpods-pwv9w   1/1     Running   0          114s
+newpods-v99pw   1/1     Running   0          114s
+nginx           1/1     Running   0          58s
+
+controlplane ~ ➜  
+
+
+4
+
+
+4)
+Which nodes are these pods placed on?
+
+Hint:
+Use the '-o wide' option with the 'kubectl get' command.
+
+Solution:
+Run 'kubectl get pods -o wide' and check for the node the pod is placed on.
+
+controlplane ~ ➜  kubectl get pods -o wide
+NAME            READY   STATUS    RESTARTS   AGE     IP           NODE           NOMINATED NODE   READINESS GATES
+newpods-mv4h7   1/1     Running   0          3m18s   10.22.0.9    controlplane   <none>           <none>
+newpods-pwv9w   1/1     Running   0          3m18s   10.22.0.11   controlplane   <none>           <none>
+newpods-v99pw   1/1     Running   0          3m18s   10.22.0.10   controlplane   <none>           <none>
+nginx           1/1     Running   0          2m22s   10.22.0.12   controlplane   <none>           <none>
+
+controlplane ~ ➜  
+
+
+5)
+What is the state of the pod webapp?
+Wait for it to finish the ContainerCreating state.
+
+Hint:
+Use the 'kubectl get pods' command.
+
+Solution:
+Run the command 'kubectl get pods' and look at the state of the webapp pod.
+
+controlplane ~ ➜  kubectl get pods -o wide
+NAME            READY   STATUS             RESTARTS   AGE     IP           NODE           NOMINATED NODE   READINESS GATES
+newpods-mv4h7   1/1     Running            0          4m53s   10.22.0.9    controlplane   <none>           <none>
+newpods-pwv9w   1/1     Running            0          4m53s   10.22.0.11   controlplane   <none>           <none>
+newpods-v99pw   1/1     Running            0          4m53s   10.22.0.10   controlplane   <none>           <none>
+nginx           1/1     Running            0          3m57s   10.22.0.12   controlplane   <none>           <none>
+webapp          1/2     ImagePullBackOff   0          65s     10.22.0.13   controlplane   <none>           <none>
+
+ImagePullBackOff
+
+
+
+
+
+
+
+
+
+
+

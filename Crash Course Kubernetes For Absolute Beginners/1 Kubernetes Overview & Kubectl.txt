@@ -1,0 +1,12 @@
+Kubernetes Overview & Kubectl
+
+Container and Orchestration
+
+Kubernetes - is a container orchestration technology that manages and deploys thousands of containers in a cluster.
+
+Node - machine physical or virtual. A container is running on a node. 
+
+Cluster - is a set of nodes. We have Master and Slaves (Worker nodes) architecture.
+
+
+

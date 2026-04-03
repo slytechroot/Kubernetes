@@ -1,0 +1,82 @@
+Lab Kubectl
+
+1)
+How many nodes are part of the cluster?
+
+HInt:
+Type 'kubectl get nodes' in the terminal on the right and count the number of nodes that are listed.
+
+controlplane ~ ➜  kubectl get nodes
+NAME           STATUS   ROLES           AGE   VERSION
+controlplane   Ready    control-plane   21m   v1.35.0+k3s3
+
+1
+
+
+2)
+What is the version of Kubernetes running on the nodes ?
+
+Solution:
+To verify the version of your Kubernetes nodes, execute the following command:
+
+controlplane ~ ➜  kubectl get nodes
+NAME           STATUS            ROLES                  AGE   VERSION
+controlplane   Ready    control-plane,master   68s   v1.32.0+k3s1
+
+OR
+
+controlplane ~ ➜  kubectl version
+Client Version: v1.32.0+k3s1
+Kustomize Version: v5.5.0
+Server Version: v1.32.0+k3s1
+
+
+3)
+The Kubernetes control plane URL can be found by running the command kubectl cluster-info. 
+
+Solution:
+The Kubernetes control plane URL points to the API server endpoint, which is the entry point for all kubectl commands and cluster communication. When you run kubectl cluster-info from the control plane node itself, it often shows the loopback IP 127.0.0.1 with the default secure port 6443, resulting in:
+
+controlplane ~ ➜  kubectl cluster-info 
+Kubernetes control plane is running at https://127.0.0.1:6443
+CoreDNS is running at https://127.0.0.1:6443/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
+Metrics-server is running at https://127.0.0.1:6443/api/v1/namespaces/kube-system/services/https:metrics-server:https/proxy
+
+To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
+
+Kubernetes control plane is running at https://127.0.0.1:6443
+
+4)
+Create a Pod named 'nginx-pod' using the nginx image.
+
+Solution:
+Run the following command to create a Pod named nginx-pod using the nginx image:
+
+   kubectl run nginx-pod --image=nginx
+
+Verify that the Pod has been created by running:
+
+   kubectl get pods
+
+controlplane ~ ➜  kubectl run nginx-pod --image=nginx
+pod/nginx-pod created
+
+controlplane ~ ➜  kubectl get pods
+NAME        READY   STATUS    RESTARTS   AGE
+nginx-pod   1/1     Running   0          11s
+
+controlplane ~ ➜  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
