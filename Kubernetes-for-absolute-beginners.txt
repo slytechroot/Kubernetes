@@ -25,4 +25,9 @@ kubectl get pods
 kubectl delete -f nginx-rs.yaml
 
 
+Notes:
+A pod can host one or multiple containers. Best practice recommends one container per pod.
+We scale our application by having more pods running the same container.
+A pod can fail for many reasons and when a pod fails, it gets replaced with a new pod and a new container inside of it.
+The pod can be created on the same worker node or any other worker node in the Kubernetes cluster, a decision made by the Kubernetes scheduler.
 
